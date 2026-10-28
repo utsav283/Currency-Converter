@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <h2>Currency Converter</h2>
+        <form id="currencyForm">
+            <input type="number" id="amount" placeholder="Enter amount in GBP" required>
+            <select id="currency">
+                <option value="USD">American Dollar (USD)</option>
+                <option value="EUR">Euro (EUR)</option>
+                <option value="BRL">Brazilian Real (BRL)</option>
+                <option value="JPY">Japanese Yen (JPY)</option>
+                <option value="TRY">Turkish Lira (TRY)</option>
+            </select>
+            <button type="submit">Convert</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const exchangeRates = {
+            USD: 1.30, // GBP to USD
+            EUR: 1.17, // GBP to EUR
+            BRL: 6.34, // GBP to BRL
+            JPY: 180.50, // GBP to JPY
+            TRY: 35.60 // GBP to TRY
+        };
+
+        const form = document.getElementById('currencyForm');
+        const resultDiv = document.getElementById('result');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const amount = parseFloat(document.getElementById('amount').value);
+            const currency = document.getElementById('currency').value;
+
+            if (!amount || amount <= 0) {
+                resultDiv.textContent = "Please enter a valid amount.";
+                return;
+            }
+
+            const rate = exchangeRates[currency];
+            const convertedAmount = (amount * rate).toFixed(2);
+
+            resultDiv.textContent = `Converted Amount: ${convertedAmount} ${currency}`;
+        });
+    </script>
+</body>
+</html>
